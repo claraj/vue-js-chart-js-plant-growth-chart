@@ -1,0 +1,506 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\froman\fcharset0 Times-Roman;\f1\fnil\fcharset0 Menlo-Regular;\f2\froman\fcharset0 Times-Bold;
+\f3\fnil\fcharset0 AndaleMono;\f4\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red202\green202\blue202;\red23\green23\blue23;
+\red140\green211\blue254;\red194\green126\blue101;\red205\green173\blue106;\red67\green192\blue160;\red70\green137\blue204;
+\red212\green214\blue154;\red66\green179\blue255;\red183\green111\blue179;\red89\green138\blue67;\red167\green197\blue152;
+\red245\green255\blue220;\red0\green0\blue0;\red109\green109\blue109;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c83137\c83137\c83137;\cssrgb\c11765\c11765\c11765;
+\cssrgb\c61176\c86275\c99608;\cssrgb\c80784\c56863\c47059;\cssrgb\c84314\c72941\c49020;\cssrgb\c30588\c78824\c69020;\cssrgb\c33725\c61176\c83922;
+\cssrgb\c86275\c86275\c66667;\cssrgb\c30980\c75686\c100000;\cssrgb\c77255\c52549\c75294;\cssrgb\c41569\c60000\c33333;\cssrgb\c70980\c80784\c65882;
+\cssrgb\c96742\c99608\c89053;\csgray\c0\c90000;\cssrgb\c50196\c50196\c50196;}
+\margl1440\margr1440\vieww10800\viewh15480\viewkind0
+\deftab720
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f0\fs24 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 ChartJS and Vue  - tracking growth of plant (or height of child or weight of kitten etc. )\
+\
+https://vue-chartjs.org/\
+\
+vue create plant-growth-chart\
+\
+make the following files:\
+\
+create new file package.json with \
+\
+npm init\
+\
+enter package name \
+enter description\
+entry point server.js\
+author you\
+\
+\
+\pard\pardeftab720\sl280\partightenfactor0
+\cf2 \outl0\strokewidth0 Now you have a new file called package.json\
+\
+\cf2 \outl0\strokewidth0 \strokec2 \
+\pard\pardeftab720\sl280\partightenfactor0
+\cf2 npm install express\
+npm install body-parser\
+npm install sequelize\
+npm install pg    # need if you plan to deploy this to heroku\
+npm install --save-dev sqlite3\
+\
+package.json looks like this\
+\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1 \cf3 \cb4 \strokec3 \{\cb1 \
+\cb4   \cf5 \strokec5 "name"\cf3 \strokec3 : \cf6 \strokec6 "plant-height-records"\cf3 \strokec3 ,\cb1 \
+\cb4   \cf5 \strokec5 "version"\cf3 \strokec3 : \cf6 \strokec6 "1.0.0"\cf3 \strokec3 ,\cb1 \
+\cb4   \cf5 \strokec5 "description"\cf3 \strokec3 : \cf6 \strokec6 "Plant height with chart"\cf3 \strokec3 ,\cb1 \
+\cb4   \cf5 \strokec5 "main"\cf3 \strokec3 : \cf6 \strokec6 "server.js"\cf3 \strokec3 ,\cb1 \
+\cb4   \cf5 \strokec5 "scripts"\cf3 \strokec3 : \{\cb1 \
+\cb4     \cf5 \strokec5 "test"\cf3 \strokec3 : \cf6 \strokec6 "echo \cf7 \strokec7 \\"\cf6 \strokec6 Error: no test specified\cf7 \strokec7 \\"\cf6 \strokec6  && exit 1"\cf3 \strokec3 ,\cb1 \
+\cb4     \cf5 \strokec5 "start"\cf3 \strokec3 : \cf6 \strokec6 "node server.js"\cf3 \cb1 \strokec3 \
+\cb4   \},\cb1 \
+\cb4   \cf5 \strokec5 "author"\cf3 \strokec3 : \cf6 \strokec6 "clara"\cf3 \strokec3 ,\cb1 \
+\cb4   \cf5 \strokec5 "license"\cf3 \strokec3 : \cf6 \strokec6 "ISC"\cf3 \strokec3 ,\cb1 \
+\cb4   \cf5 \strokec5 "dependencies"\cf3 \strokec3 : \{\cb1 \
+\cb4     \cf5 \strokec5 "body-parser"\cf3 \strokec3 : \cf6 \strokec6 "^1.19.0"\cf3 \strokec3 ,\cb1 \
+\cb4     \cf5 \strokec5 "express"\cf3 \strokec3 : \cf6 \strokec6 "^4.17.1"\cf3 \strokec3 ,\cb1 \
+\cb4     \cf5 \strokec5 "pg"\cf3 \strokec3 : \cf6 \strokec6 "^8.5.1"\cf3 \strokec3 ,\cb1 \
+\cb4     \cf5 \strokec5 "sequelize"\cf3 \strokec3 : \cf6 \strokec6 "^6.3.5"\cf3 \cb1 \strokec3 \
+\cb4   \},\cb1 \
+\cb4   \cf5 \strokec5 "devDependencies"\cf3 \strokec3 : \{\cb1 \
+\cb4     \cf5 \strokec5 "sqlite3"\cf3 \strokec3 : \cf6 \strokec6 "^5.0.0"\cf3 \cb1 \strokec3 \
+\cb4   \}\cb1 \
+\cb4 \}\cb1 \
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f0 \cf2 \strokec2 \
+\
+server.js  [copy in from other project] https://github.com/claraj/student-sign-in-vue-express-api/blob/master/server.js rename line 8 to use your project name \
+routes directory \
+   - api.js  [empty for now]\
+models directory \
+  - index.js  [copy from other project and change student to plantRecord\
+  - record.js  [ empty for now ] \
+\
+config.
+\f2\b json
+\f0\b0   [copy from other project]  https://github.com/claraj/student-sign-in-vue-express-api/blob/master/ \
+config.json rename "storage" from "student.sqlite" to "plant.sqlite"  or appropriate for your concept\
+\
+models/record.js\
+\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1 \cf8 \cb4 \strokec8 module\cf3 \strokec3 .\cf8 \strokec8 exports\cf3 \strokec3  = (\cf5 \strokec5 sequelize\cf3 \strokec3 , \cf5 \strokec5 DataTypes\cf3 \strokec3 ) \cf9 \strokec9 =>\cf3 \strokec3  \{\cb1 \
+\
+\cb4     \cf9 \strokec9 let\cf3 \strokec3  \cf5 \strokec5 PlantRecord\cf3 \strokec3  = \cf5 \strokec5 sequelize\cf3 \strokec3 .\cf10 \strokec10 define\cf3 \strokec3 (\cf6 \strokec6 'PlantRecord'\cf3 \strokec3 , \{\cb1 \
+\cb4         \cf5 \strokec5 height:\cf3 \strokec3  \{\cb1 \
+\cb4             \cf5 \strokec5 type:\cf3 \strokec3  \cf5 \strokec5 DataTypes\cf3 \strokec3 .\cf11 \strokec11 NUMBER\cf3 \strokec3 ,\cb1 \
+\cb4             \cf5 \strokec5 allowNull:\cf3 \strokec3  \cf9 \strokec9 false\cf3 \cb1 \strokec3 \
+\cb4         \}, \cf5 \strokec5 date:\cf3 \strokec3  \{\cb1 \
+\cb4             \cf5 \strokec5 type:\cf3 \strokec3  \cf5 \strokec5 DataTypes\cf3 \strokec3 .\cf11 \strokec11 DATE\cf3 \strokec3 ,\cb1 \
+\cb4             \cf5 \strokec5 allowNull:\cf3 \strokec3  \cf9 \strokec9 false\cf3 \cb1 \strokec3 \
+\cb4         \}\cb1 \
+\cb4     \})\cb1 \
+\
+\cb4     \cf5 \strokec5 PlantRecord\cf3 \strokec3 .\cf10 \strokec10 sync\cf3 \strokec3 (\{\cf5 \strokec5 force:\cf3 \strokec3  \cf9 \strokec9 true\cf3 \strokec3 \}).\cf10 \strokec10 then\cf3 \strokec3 ( () \cf9 \strokec9 =>\cf3 \strokec3  \{\cb1 \
+\cb4         \cf5 \strokec5 console\cf3 \strokec3 .\cf10 \strokec10 log\cf3 \strokec3 (\cf6 \strokec6 'synced plant record table'\cf3 \strokec3 )\cb1 \
+\cb4     \})\cb1 \
+\
+\cb4     \cf12 \strokec12 return\cf3 \strokec3  \cf5 \strokec5 PlantRecord\cf3 \strokec3   \cb1 \
+\cb4 \} \cb1 \
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f0 \cf2 \strokec2 \
+routes/api.js\
+\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1 \cf9 \cb4 \strokec9 let\cf3 \strokec3  \cf5 \strokec5 express\cf3 \strokec3  = \cf10 \strokec10 require\cf3 \strokec3 (\cf6 \strokec6 'express'\cf3 \strokec3 )\cb1 \
+\cf9 \cb4 \strokec9 let\cf3 \strokec3  \cf5 \strokec5 db\cf3 \strokec3  = \cf10 \strokec10 require\cf3 \strokec3 (\cf6 \strokec6 '../models'\cf3 \strokec3 )  \cf13 \strokec13 // imports index.js from models directory, which \cf3 \cb1 \strokec3 \
+\cf9 \cb4 \strokec9 let\cf3 \strokec3  \cf5 \strokec5 PlantRecord\cf3 \strokec3  = \cf5 \strokec5 db\cf3 \strokec3 .\cf5 \strokec5 PlantRecord\cf3 \cb1 \strokec3 \
+\
+\cf9 \cb4 \strokec9 let\cf3 \strokec3  \cf5 \strokec5 router\cf3 \strokec3  = \cf5 \strokec5 express\cf3 \strokec3 .\cf10 \strokec10 Router\cf3 \strokec3 ()\cb1 \
+\
+\cf5 \cb4 \strokec5 // get all records\
+router\cf3 \strokec3 .\cf10 \strokec10 get\cf3 \strokec3 (\cf6 \strokec6 '/plant_records'\cf3 \strokec3 , \cf9 \strokec9 function\cf3 \strokec3 (\cf5 \strokec5 req\cf3 \strokec3 , \cf5 \strokec5 res\cf3 \strokec3 , \cf10 \strokec10 next\cf3 \strokec3 )\{\cb1 \
+\cb4     \cf5 \strokec5 PlantRecord\cf3 \strokec3 .\cf10 \strokec10 findAll\cf3 \strokec3 (\{\cf5 \strokec5 order:\cf3 \strokec3  [\cf6 \strokec6 'date'\cf3 \strokec3 ]\}).\cf10 \strokec10 then\cf3 \strokec3 ( \cf5 \strokec5 plantRecords\cf3 \strokec3  \cf9 \strokec9 =>\cf3 \strokec3  \{\cb1 \
+\cb4         \cf12 \strokec12 return\cf3 \strokec3  \cf5 \strokec5 res\cf3 \strokec3 .\cf10 \strokec10 json\cf3 \strokec3 (\cf5 \strokec5 plantRecords\cf3 \strokec3 )\cb1 \
+\cb4     \}).\cf10 \strokec10 catch\cf3 \strokec3 ( \cf5 \strokec5 err\cf3 \strokec3  \cf9 \strokec9 =>\cf3 \strokec3  \cf10 \strokec10 next\cf3 \strokec3 (\cf5 \strokec5 err\cf3 \strokec3 ) )\cb1 \
+\cb4 \})\cb1 \
+\
+\cf5 \cb4 \strokec5 // add new record\
+router\cf3 \strokec3 .\cf10 \strokec10 post\cf3 \strokec3 (\cf6 \strokec6 '/plant_records'\cf3 \strokec3 , \cf9 \strokec9 function\cf3 \strokec3 (\cf5 \strokec5 req\cf3 \strokec3 , \cf5 \strokec5 res\cf3 \strokec3 , \cf10 \strokec10 next\cf3 \strokec3 ) \{\cb1 \
+\cb4     \cf5 \strokec5 PlantRecord\cf3 \strokec3 .\cf10 \strokec10 create\cf3 \strokec3 (\cf5 \strokec5 req\cf3 \strokec3 .\cf5 \strokec5 body\cf3 \strokec3 ).\cf10 \strokec10 then\cf3 \strokec3 ( () \cf9 \strokec9 =>\cf3 \strokec3  \{\cb1 \
+\cb4         \cf5 \strokec5 res\cf3 \strokec3 .\cf10 \strokec10 status\cf3 \strokec3 (\cf14 \strokec14 201\cf3 \strokec3 ).\cf10 \strokec10 send\cf3 \strokec3 (\cf6 \strokec6 'ok'\cf3 \strokec3 )\cb1 \
+\cb4     \}).\cf10 \strokec10 catch\cf3 \strokec3 ( \cf10 \strokec10 next\cf3 \strokec3 (\cf5 \strokec5 err\cf3 \strokec3 ) )  \cf13 \strokec13 // todo send more specific error message\cf3 \cb1 \strokec3 \
+\cb4 \})\cb1 \
+\
+\cf5 \cb4 \strokec5 module\cf3 \strokec3 .\cf5 \strokec5 exports\cf3 \strokec3  = \cf5 \strokec5 router\cf3 \cb1 \strokec3 \
+\
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f0 \cf2 \strokec2 \
+\
+Run your server \
+\
+127.0.0.1:3000/api/plant_records\
+\
+Expect empty array\
+\
+curl, add and query\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f3 \cf15 \cb16 \kerning1\expnd0\expndtw0 \CocoaLigature0 \outl0\strokewidth0 curl http://127.0.0.1:3000/api/plant_records  
+\f0 \cf2 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \outl0\strokewidth0 \strokec2 \
+\pard\pardeftab720\sl280\partightenfactor0
+\cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f3 \cf15 \cb16 \kerning1\expnd0\expndtw0 \CocoaLigature0 \outl0\strokewidth0 curl -X POST --data '\{"height": 1, "date": "2012-04-23T18:25:43.511Z"\}' http://127.0.0.1:3000/api/plant_records -H "Content-Type: Application/JSON"
+\f0 \cf2 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \outl0\strokewidth0 \strokec2 \
+\pard\pardeftab720\sl280\partightenfactor0
+\cf2 \
+\
+All OK? Change sync: false to prevent recreating DB tables\
+\
+Vue code!\
+\
+cd plant-growth-chart\
+\
+npm install chart.js            <-- yes dot  .js\
+npm install vue-chartjs      <-- no dot\
+npm install axios\
+\
+\
+Open App.vue and HelloWord.vue\
+Rename HelloWorld and references to it to PlantChart  - check App.vue\
+\
+\
+https://github.com/claraj/student-sign-in-vue-express-api/blob/master/student-client/vue.config.js\
+\
+Create new file vue.config.js in your plant-growth-chart\
+\
+new directory \
+\
+src/services/PlantService.js\
+\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1 \cf12 \cb4 \strokec12 import\cf3 \strokec3  \cf5 \strokec5 axios\cf3 \strokec3  \cf12 \strokec12 from\cf3 \strokec3  \cf6 \strokec6 'axios'\cf3 \cb1 \strokec3 \
+\
+\cf12 \cb4 \strokec12 export\cf3 \strokec3  \cf12 \strokec12 default\cf3 \strokec3  \{\cb1 \
+\
+\cb4     \cf10 \strokec10 getAllPlantRecords\cf3 \strokec3 () \{\cb1 \
+\cb4         \cf12 \strokec12 return\cf3 \strokec3  \cf11 \strokec11 axios\cf3 \strokec3 .\cf10 \strokec10 get\cf3 \strokec3 (\cf6 \strokec6 '/api/plant_records'\cf3 \strokec3 ).\cf10 \strokec10 then\cf3 \strokec3 ( \cf5 \strokec5 response\cf3 \strokec3  \cf9 \strokec9 =>\cf3 \strokec3  \{\cb1 \
+\cb4             \cf12 \strokec12 return\cf3 \strokec3  \cf5 \strokec5 response\cf3 \strokec3 .\cf5 \strokec5 data\cf3 \cb1 \strokec3 \
+\cb4         \})\cb1 \
+\cb4     \},\cb1 \
+\
+\cb4     \cf10 \strokec10 addPlantRecord\cf3 \strokec3 (\cf5 \strokec5 plantRecord\cf3 \strokec3 ) \{\cb1 \
+\cb4         \cf12 \strokec12 return\cf3 \strokec3  \cf11 \strokec11 axios\cf3 \strokec3 .\cf10 \strokec10 post\cf3 \strokec3 (\cf6 \strokec6 '/api/plant_records'\cf3 \strokec3 , \cf5 \strokec5 plantRecord\cf3 \strokec3 ).\cf10 \strokec10 then\cf3 \strokec3 ( \cf5 \strokec5 response\cf3 \strokec3  \cf9 \strokec9 =>\cf3 \strokec3  \{\cb1 \
+\cb4             \cf12 \strokec12 return\cf3 \strokec3  \cf5 \strokec5 response\cf3 \strokec3 .\cf5 \strokec5 data\cf3 \strokec3  \cb1 \
+\cb4         \})\cb1 \
+\cb4     \}\cb1 \
+\
+\cb4 \}\cb1 \
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f0 \cf2 \strokec2 \
+\
+src/main.js \
+\
+\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1 \cf12 \cb4 \strokec12 import\cf3 \strokec3  \cf5 \strokec5 Vue\cf3 \strokec3  \cf12 \strokec12 from\cf3 \strokec3  \cf6 \strokec6 'vue'\cf3 \cb1 \strokec3 \
+\cf12 \cb4 \strokec12 import\cf3 \strokec3  \cf5 \strokec5 App\cf3 \strokec3  \cf12 \strokec12 from\cf3 \strokec3  \cf6 \strokec6 './App.vue'\cf3 \cb1 \strokec3 \
+\cf12 \cb4 \strokec12 import\cf3 \strokec3  \cf5 \strokec5 PlantRecordService\cf3 \strokec3  \cf12 \strokec12 from\cf3 \strokec3  \cf6 \strokec6 '@/services/PlantRecordService'\cf3 \cb1 \strokec3 \
+\
+\cf11 \cb4 \strokec11 Vue\cf3 \strokec3 .\cf5 \strokec5 prototype\cf3 \strokec3 .\cf5 \strokec5 $plant_record_api\cf3 \strokec3  = \cf5 \strokec5 PlantRecordService\cf3 \cb1 \strokec3 \
+\
+\cf11 \cb4 \strokec11 Vue\cf3 \strokec3 .\cf5 \strokec5 config\cf3 \strokec3 .\cf5 \strokec5 productionTip\cf3 \strokec3  = \cf9 \strokec9 false\cf3 \cb1 \strokec3 \
+\
+\cf9 \cb4 \strokec9 new\cf3 \strokec3  \cf11 \strokec11 Vue\cf3 \strokec3 (\{\cb1 \
+\cb4   \cf10 \strokec10 render\cf5 \strokec5 :\cf3 \strokec3  \cf5 \strokec5 h\cf3 \strokec3  \cf9 \strokec9 =>\cf3 \strokec3  \cf10 \strokec10 h\cf3 \strokec3 (\cf5 \strokec5 App\cf3 \strokec3 ),\cb1 \
+\cb4 \}).\cf10 \strokec10 $mount\cf3 \strokec3 (\cf6 \strokec6 '#app'\cf3 \strokec3 )\cb1 \
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f0 \cf2 \strokec2 \
+\
+App.vue - a form, some data, method to add new record\
+\
+\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1 \cf17 \cb4 \strokec17 <\cf9 \strokec9 template\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf3 \cb4   \cf17 \strokec17 <\cf9 \strokec9 div\cf3 \strokec3  \cf5 \strokec5 id\cf3 \strokec3 =\cf6 \strokec6 "app"\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\cb4    \cb1 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 label\cf17 \strokec17 >\cf3 \strokec3 Height\cf17 \strokec17 </\cf9 \strokec9 label\cf17 \strokec17 >\cf3 \strokec3  \cb1 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 input\cf3 \strokec3  \cf5 \strokec5 type\cf3 \strokec3 =\cf6 \strokec6 "number"\cf3 \strokec3  \cf5 \strokec5 v-model\cf3 \strokec3 ="\cf5 \strokec5 newHeight\cf3 \strokec3 "\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 br\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 label\cf17 \strokec17 >\cf3 \strokec3 Date\cf17 \strokec17 </\cf9 \strokec9 label\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 input\cf3 \strokec3  \cf5 \strokec5 type\cf3 \strokec3 =\cf6 \strokec6 "date"\cf3 \strokec3  \cf5 \strokec5 v-model\cf3 \strokec3 ="\cf5 \strokec5 newDate\cf3 \strokec3 "\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 br\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 button\cf3 \strokec3  \cf5 \strokec5 v-on\cf3 \strokec3 :\cf5 \strokec5 click\cf3 \strokec3 ="\cf5 \strokec5 addRecord\cf3 \strokec3 "\cf17 \strokec17 >\cf3 \strokec3 Add record\cf17 \strokec17 </\cf9 \strokec9 button\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 plant-chart\cf3 \strokec3 /\cf17 \strokec17 >\cf3 \strokec3   \cf13 \strokec13 <!--todo -->\cf3 \cb1 \strokec3 \
+\cb4   \cf17 \strokec17 </\cf9 \strokec9 div\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf17 \cb4 \strokec17 </\cf9 \strokec9 template\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\
+\cf17 \cb4 \strokec17 <\cf9 \strokec9 script\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf12 \cb4 \strokec12 import\cf3 \strokec3  \cf5 \strokec5 PlantChart\cf3 \strokec3  \cf12 \strokec12 from\cf3 \strokec3  \cf6 \strokec6 './components/PlantChart.vue'\cf3 \cb1 \strokec3 \
+\
+\cf12 \cb4 \strokec12 export\cf3 \strokec3  \cf12 \strokec12 default\cf3 \strokec3  \{\cb1 \
+\cb4   \cf5 \strokec5 name:\cf3 \strokec3  \cf6 \strokec6 'App'\cf3 \strokec3 ,\cb1 \
+\cb4   \cf5 \strokec5 components:\cf3 \strokec3  \{\cb1 \
+\cb4     \cf5 \strokec5 PlantChart\cf3 \cb1 \strokec3 \
+\cb4   \},\cb1 \
+\cb4   \cf10 \strokec10 data\cf3 \strokec3 () \{\cb1 \
+\cb4     \cf12 \strokec12 return\cf3 \strokec3  \{\cb1 \
+\cb4       \cf5 \strokec5 newHeight:\cf3 \strokec3  \cf14 \strokec14 0\cf3 \strokec3 ,\cb1 \
+\cb4       \cf5 \strokec5 newDate:\cf3 \strokec3  \cf6 \strokec6 ''\cf3 \strokec3 ,\cb1 \
+\cb4     \}\cb1 \
+\cb4   \},\cb1 \
+\cb4   \cf5 \strokec5 methods:\cf3 \strokec3  \{\cb1 \
+\cb4     \cf10 \strokec10 addRecord\cf3 \strokec3 () \{\cb1 \
+\cb4       \cf13 \strokec13 // todo validation\cf3 \cb1 \strokec3 \
+\cb4       \cf9 \strokec9 let\cf3 \strokec3  \cf5 \strokec5 record\cf3 \strokec3  = \{\cf5 \strokec5 height:\cf3 \strokec3  \cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 newHeight\cf3 \strokec3 , \cf5 \strokec5 date:\cf3 \strokec3  \cf9 \strokec9 new\cf3 \strokec3  \cf8 \strokec8 Date\cf3 \strokec3 (\cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 newDate\cf3 \strokec3 )\}\cb1 \
+\cb4       \cf5 \strokec5 console\cf3 \strokec3 .\cf10 \strokec10 log\cf3 \strokec3 (\cf5 \strokec5 record\cf3 \strokec3 )\cb1 \
+\cb4       \cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 $plant_record_api\cf3 \strokec3 .\cf10 \strokec10 addPlantRecord\cf3 \strokec3 (\cf5 \strokec5 record\cf3 \strokec3 ).\cf10 \strokec10 then\cf3 \strokec3 ( \cf5 \strokec5 response\cf3 \strokec3  \cf9 \strokec9 =>\cf3 \strokec3  \{ \cb1 \
+\cb4         \cf13 \strokec13 // todo update chart\cf3 \cb1 \strokec3 \
+\cb4       \})\cb1 \
+\cb4     \}\cb1 \
+\cb4 \}\cb1 \
+\cb4 \}\cb1 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf17 \cb4 \strokec17 </\cf9 \strokec9 script\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\
+\cf17 \cb4 \strokec17 <\cf9 \strokec9 style\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf7 \cb4 \strokec7 #app\cf3 \strokec3  \{\cb1 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf3 \cb4   \cf5 \strokec5 font-family\cf3 \strokec3 : Avenir, \cf6 \strokec6 Helvetica\cf3 \strokec3 , \cf6 \strokec6 Arial\cf3 \strokec3 , \cf6 \strokec6 sans-serif\cf3 \strokec3 ;\cb1 \
+\cb4   \cf5 \strokec5 -webkit-font-smoothing\cf3 \strokec3 : \cf6 \strokec6 antialiased\cf3 \strokec3 ;\cb1 \
+\cb4   \cf5 \strokec5 -moz-osx-font-smoothing\cf3 \strokec3 : \cf6 \strokec6 grayscale\cf3 \strokec3 ;\cb1 \
+\cb4   \cf5 \strokec5 text-align\cf3 \strokec3 : \cf6 \strokec6 center\cf3 \strokec3 ;\cb1 \
+\cb4   \cf5 \strokec5 color\cf3 \strokec3 : \cf6 \strokec6 #2c3e50\cf3 \strokec3 ;\cb1 \
+\cb4   \cf5 \strokec5 margin-top\cf3 \strokec3 : \cf14 \strokec14 60px\cf3 \strokec3 ;\cb1 \
+\cb4 \}\cb1 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf17 \cb4 \strokec17 </\cf9 \strokec9 style\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\
+\
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f0 \cf2 \strokec2 \
+Try adding data - check at 127.0.0.1:3000/api/plant_records\
+\
+Is data sorted by date? Earliest first \
+\
+Let's get data\
+\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1 \cf17 \cb4 \strokec17 <\cf9 \strokec9 template\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf3 \cb4   \cf17 \strokec17 <\cf9 \strokec9 div\cf3 \strokec3  \cf5 \strokec5 id\cf3 \strokec3 =\cf6 \strokec6 "app"\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\cb4    \cb1 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 label\cf17 \strokec17 >\cf3 \strokec3 Height\cf17 \strokec17 </\cf9 \strokec9 label\cf17 \strokec17 >\cf3 \strokec3  \cb1 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 input\cf3 \strokec3  \cf5 \strokec5 type\cf3 \strokec3 =\cf6 \strokec6 "number"\cf3 \strokec3  \cf5 \strokec5 v-model\cf3 \strokec3 ="\cf5 \strokec5 newHeight\cf3 \strokec3 "\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 br\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 label\cf17 \strokec17 >\cf3 \strokec3 Date\cf17 \strokec17 </\cf9 \strokec9 label\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 input\cf3 \strokec3  \cf5 \strokec5 type\cf3 \strokec3 =\cf6 \strokec6 "date"\cf3 \strokec3  \cf5 \strokec5 v-model\cf3 \strokec3 ="\cf5 \strokec5 newDate\cf3 \strokec3 "\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 br\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 button\cf3 \strokec3  \cf5 \strokec5 v-on\cf3 \strokec3 :\cf5 \strokec5 click\cf3 \strokec3 ="\cf5 \strokec5 addRecord\cf3 \strokec3 "\cf17 \strokec17 >\cf3 \strokec3 Add record\cf17 \strokec17 </\cf9 \strokec9 button\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 plant-chart\cf3 \strokec3 /\cf17 \strokec17 >\cf3 \strokec3   \cf13 \strokec13 <!--todo -->\cf3 \cb1 \strokec3 \
+\cb4   \cf17 \strokec17 </\cf9 \strokec9 div\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf17 \cb4 \strokec17 </\cf9 \strokec9 template\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\
+\cf17 \cb4 \strokec17 <\cf9 \strokec9 script\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf12 \cb4 \strokec12 import\cf3 \strokec3  \cf5 \strokec5 PlantChart\cf3 \strokec3  \cf12 \strokec12 from\cf3 \strokec3  \cf6 \strokec6 './components/PlantChart.vue'\cf3 \cb1 \strokec3 \
+\
+\cf12 \cb4 \strokec12 export\cf3 \strokec3  \cf12 \strokec12 default\cf3 \strokec3  \{\cb1 \
+\cb4   \cf5 \strokec5 name:\cf3 \strokec3  \cf6 \strokec6 'App'\cf3 \strokec3 ,\cb1 \
+\cb4   \cf5 \strokec5 components:\cf3 \strokec3  \{\cb1 \
+\cb4     \cf5 \strokec5 PlantChart\cf3 \cb1 \strokec3 \
+\cb4   \},\cb1 \
+\cb4   \cf10 \strokec10 data\cf3 \strokec3 () \{\cb1 \
+\cb4     \cf12 \strokec12 return\cf3 \strokec3  \{\cb1 \
+\cb4       \cf5 \strokec5 newHeight:\cf3 \strokec3  \cf14 \strokec14 0\cf3 \strokec3 ,\cb1 \
+\cb4       \cf5 \strokec5 newDate:\cf3 \strokec3  \cf6 \strokec6 ''\cf3 \strokec3 ,\cb1 \
+\cb4       \cf5 \strokec5 allRecords:\cf3 \strokec3  []\cb1 \
+\cb4     \}\cb1 \
+\cb4   \},\cb1 \
+\cb4   \cf10 \strokec10 mounted\cf3 \strokec3 () \{\cb1 \
+\cb4     \cf9 \strokec9 this\cf3 \strokec3 .\cf10 \strokec10 getAllData\cf3 \strokec3 ()\cb1 \
+\cb4   \},\cb1 \
+\cb4   \cf5 \strokec5 methods:\cf3 \strokec3  \{\cb1 \
+\cb4     \cf10 \strokec10 addRecord\cf3 \strokec3 () \{\cb1 \
+\cb4       \cf13 \strokec13 // todo validation\cf3 \cb1 \strokec3 \
+\cb4       \cf9 \strokec9 let\cf3 \strokec3  \cf5 \strokec5 record\cf3 \strokec3  = \{\cf5 \strokec5 height:\cf3 \strokec3  \cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 newHeight\cf3 \strokec3 , \cf5 \strokec5 date:\cf3 \strokec3  \cf9 \strokec9 new\cf3 \strokec3  \cf8 \strokec8 Date\cf3 \strokec3 (\cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 newDate\cf3 \strokec3 )\}\cb1 \
+\cb4       \cf5 \strokec5 console\cf3 \strokec3 .\cf10 \strokec10 log\cf3 \strokec3 (\cf5 \strokec5 record\cf3 \strokec3 )\cb1 \
+\cb4       \cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 $plant_record_api\cf3 \strokec3 .\cf10 \strokec10 addPlantRecord\cf3 \strokec3 (\cf5 \strokec5 record\cf3 \strokec3 ).\cf10 \strokec10 then\cf3 \strokec3 ( \cf5 \strokec5 response\cf3 \strokec3  \cf9 \strokec9 =>\cf3 \strokec3  \{ \cb1 \
+\cb4         \cf9 \strokec9 this\cf3 \strokec3 .\cf10 \strokec10 getAllData\cf3 \strokec3 ()\cb1 \
+\cb4       \})\cb1 \
+\cb4     \},\cb1 \
+\cb4     \cf10 \strokec10 getAllData\cf3 \strokec3 () \{\cb1 \
+\cb4       \cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 $plant_record_api\cf3 \strokec3 .\cf10 \strokec10 getAllPlantRecords\cf3 \strokec3 ().\cf10 \strokec10 then\cf3 \strokec3 (\cf5 \strokec5 records\cf3 \strokec3  \cf9 \strokec9 =>\cf3 \strokec3  \{\cb1 \
+\cb4         \cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 allRecords\cf3 \strokec3  = \cf5 \strokec5 records\cf3 \cb1 \strokec3 \
+\cb4       \})\cb1 \
+\cb4     \}\cb1 \
+\cb4 \}\cb1 \
+\cb4 \}\cb1 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf17 \cb4 \strokec17 </\cf9 \strokec9 script\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f0 \cf2 \strokec2 \
+\
+Check vue dev tools \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f4 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {{\NeXTGraphic Pasted Graphic.png \width10500 \height11740 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}
+\f0 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \
+\pard\pardeftab720\sl280\partightenfactor0
+\cf2 \
+\
+Now to display in chart!\
+\
+\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1 \cf17 \cb4 \strokec17 <\cf9 \strokec9 template\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf3 \cb4   \cf17 \strokec17 <\cf9 \strokec9 div\cf3 \strokec3  \cf5 \strokec5 id\cf3 \strokec3 =\cf6 \strokec6 "app"\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\cb4    \cb1 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 label\cf17 \strokec17 >\cf3 \strokec3 Height\cf17 \strokec17 </\cf9 \strokec9 label\cf17 \strokec17 >\cf3 \strokec3  \cb1 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 input\cf3 \strokec3  \cf5 \strokec5 type\cf3 \strokec3 =\cf6 \strokec6 "number"\cf3 \strokec3  \cf5 \strokec5 v-model\cf3 \strokec3 ="\cf5 \strokec5 newHeight\cf3 \strokec3 "\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 br\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 label\cf17 \strokec17 >\cf3 \strokec3 Date\cf17 \strokec17 </\cf9 \strokec9 label\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 input\cf3 \strokec3  \cf5 \strokec5 type\cf3 \strokec3 =\cf6 \strokec6 "date"\cf3 \strokec3  \cf5 \strokec5 v-model\cf3 \strokec3 ="\cf5 \strokec5 newDate\cf3 \strokec3 "\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 br\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 button\cf3 \strokec3  \cf5 \strokec5 v-on\cf3 \strokec3 :\cf5 \strokec5 click\cf3 \strokec3 ="\cf5 \strokec5 addRecord\cf3 \strokec3 "\cf17 \strokec17 >\cf3 \strokec3 Add record\cf17 \strokec17 </\cf9 \strokec9 button\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\
+\cb4     \cf17 \strokec17 <\cf9 \strokec9 plant-chart\cf3 \strokec3  \cf5 \strokec5 v-bind\cf3 \strokec3 :\cf5 \strokec5 chartData\cf3 \strokec3 ="\cf5 \strokec5 chartData\cf3 \strokec3 "/\cf17 \strokec17 >\cf3 \strokec3  \cb1 \
+\cb4   \cf17 \strokec17 </\cf9 \strokec9 div\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf17 \cb4 \strokec17 </\cf9 \strokec9 template\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\
+\cf17 \cb4 \strokec17 <\cf9 \strokec9 script\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf12 \cb4 \strokec12 import\cf3 \strokec3  \cf5 \strokec5 PlantChart\cf3 \strokec3  \cf12 \strokec12 from\cf3 \strokec3  \cf6 \strokec6 './components/PlantChart.vue'\cf3 \cb1 \strokec3 \
+\
+\cf12 \cb4 \strokec12 export\cf3 \strokec3  \cf12 \strokec12 default\cf3 \strokec3  \{\cb1 \
+\cb4   \cf5 \strokec5 name:\cf3 \strokec3  \cf6 \strokec6 'App'\cf3 \strokec3 ,\cb1 \
+\cb4   \cf5 \strokec5 components:\cf3 \strokec3  \{\cb1 \
+\cb4     \cf5 \strokec5 PlantChart\cf3 \cb1 \strokec3 \
+\cb4   \},\cb1 \
+\cb4   \cf10 \strokec10 data\cf3 \strokec3 () \{\cb1 \
+\cb4     \cf12 \strokec12 return\cf3 \strokec3  \{\cb1 \
+\cb4       \cf5 \strokec5 newHeight:\cf3 \strokec3  \cf14 \strokec14 0\cf3 \strokec3 ,\cb1 \
+\cb4       \cf5 \strokec5 newDate:\cf3 \strokec3  \cf6 \strokec6 ''\cf3 \strokec3 ,\cb1 \
+\cb4       \cf5 \strokec5 allRecords:\cf3 \strokec3  [],\cb1 \
+\cb4     \cb1 \
+\cb4     \}\cb1 \
+\cb4   \},\cb1 \
+\cb4   \cf10 \strokec10 mounted\cf3 \strokec3 () \{\cb1 \
+\cb4     \cf9 \strokec9 this\cf3 \strokec3 .\cf10 \strokec10 getAllData\cf3 \strokec3 ()\cb1 \
+\cb4   \},\cb1 \
+\cb4   \cf5 \strokec5 methods:\cf3 \strokec3  \{\cb1 \
+\cb4     \cf10 \strokec10 addRecord\cf3 \strokec3 () \{\cb1 \
+\cb4       \cf13 \strokec13 // todo validation\cf3 \cb1 \strokec3 \
+\cb4       \cf9 \strokec9 let\cf3 \strokec3  \cf5 \strokec5 record\cf3 \strokec3  = \{\cf5 \strokec5 height:\cf3 \strokec3  \cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 newHeight\cf3 \strokec3 , \cf5 \strokec5 date:\cf3 \strokec3  \cf9 \strokec9 new\cf3 \strokec3  \cf8 \strokec8 Date\cf3 \strokec3 (\cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 newDate\cf3 \strokec3 )\}\cb1 \
+\cb4       \cf5 \strokec5 console\cf3 \strokec3 .\cf10 \strokec10 log\cf3 \strokec3 (\cf5 \strokec5 record\cf3 \strokec3 )\cb1 \
+\cb4       \cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 $plant_record_api\cf3 \strokec3 .\cf10 \strokec10 addPlantRecord\cf3 \strokec3 (\cf5 \strokec5 record\cf3 \strokec3 ).\cf10 \strokec10 then\cf3 \strokec3 ( \cf5 \strokec5 response\cf3 \strokec3  \cf9 \strokec9 =>\cf3 \strokec3  \{ \cb1 \
+\cb4         \cf9 \strokec9 this\cf3 \strokec3 .\cf10 \strokec10 getAllData\cf3 \strokec3 ()\cb1 \
+\cb4       \})\cb1 \
+\cb4     \},\cb1 \
+\cb4     \cf10 \strokec10 getAllData\cf3 \strokec3 () \{\cb1 \
+\cb4       \cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 $plant_record_api\cf3 \strokec3 .\cf10 \strokec10 getAllPlantRecords\cf3 \strokec3 ().\cf10 \strokec10 then\cf3 \strokec3 (\cf5 \strokec5 records\cf3 \strokec3  \cf9 \strokec9 =>\cf3 \strokec3  \{\cb1 \
+\cb4         \cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 allRecords\cf3 \strokec3  = \cf5 \strokec5 records\cf3 \cb1 \strokec3 \
+\cb4       \})\cb1 \
+\cb4     \}\cb1 \
+\cb4   \},\cb1 \
+\cb4   \cf5 \strokec5 computed:\cf3 \strokec3  \{\cb1 \
+\cb4     \cf10 \strokec10 chartData\cf3 \strokec3 () \{\cb1 \
+\cb4       \cf9 \strokec9 let\cf3 \strokec3  \cf5 \strokec5 labels\cf3 \strokec3  = \cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 allRecords\cf3 \strokec3 .\cf10 \strokec10 map\cf3 \strokec3 (\cf5 \strokec5 rec\cf3 \strokec3  \cf9 \strokec9 =>\cf3 \strokec3  \cf5 \strokec5 rec\cf3 \strokec3 .\cf5 \strokec5 date\cf3 \strokec3 ) \cf13 \strokec13 // all the dates \cf3 \cb1 \strokec3 \
+\cb4       \cf9 \strokec9 let\cf3 \strokec3  \cf5 \strokec5 heights\cf3 \strokec3  = \cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 allRecords\cf3 \strokec3 .\cf10 \strokec10 map\cf3 \strokec3 (\cf5 \strokec5 rec\cf3 \strokec3  \cf9 \strokec9 =>\cf3 \strokec3  \cf5 \strokec5 rec\cf3 \strokec3 .\cf5 \strokec5 height\cf3 \strokec3 ) \cf13 \strokec13 // all the heights\cf3 \cb1 \strokec3 \
+\
+\cb4       \cf12 \strokec12 return\cf3 \strokec3  \{\cb1 \
+\cb4         \cf5 \strokec5 labels:\cf3 \strokec3  \cf5 \strokec5 labels\cf3 \strokec3 ,\cb1 \
+\cb4          \cf5 \strokec5 datasets:\cf3 \strokec3  [ \{\cb1 \
+\cb4           \cf5 \strokec5 label:\cf3 \strokec3  \cf6 \strokec6 'Height for date'\cf3 \strokec3 ,\cb1 \
+\cb4           \cf5 \strokec5 data:\cf3 \strokec3  \cf5 \strokec5 heights\cf3 \cb1 \strokec3 \
+\cb4         \}]\cb1 \
+\cb4       \}\cb1 \
+\cb4     \}\cb1 \
+\cb4   \}\cb1 \
+\cb4 \}\cb1 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf17 \cb4 \strokec17 </\cf9 \strokec9 script\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\
+\cf17 \cb4 \strokec17 <\cf9 \strokec9 style\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf7 \cb4 \strokec7 #app\cf3 \strokec3  \{\cb1 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf3 \cb4   \cf5 \strokec5 font-family\cf3 \strokec3 : Avenir, \cf6 \strokec6 Helvetica\cf3 \strokec3 , \cf6 \strokec6 Arial\cf3 \strokec3 , \cf6 \strokec6 sans-serif\cf3 \strokec3 ;\cb1 \
+\cb4   \cf5 \strokec5 -webkit-font-smoothing\cf3 \strokec3 : \cf6 \strokec6 antialiased\cf3 \strokec3 ;\cb1 \
+\cb4   \cf5 \strokec5 -moz-osx-font-smoothing\cf3 \strokec3 : \cf6 \strokec6 grayscale\cf3 \strokec3 ;\cb1 \
+\cb4   \cf5 \strokec5 text-align\cf3 \strokec3 : \cf6 \strokec6 center\cf3 \strokec3 ;\cb1 \
+\cb4   \cf5 \strokec5 color\cf3 \strokec3 : \cf6 \strokec6 #2c3e50\cf3 \strokec3 ;\cb1 \
+\cb4   \cf5 \strokec5 margin-top\cf3 \strokec3 : \cf14 \strokec14 60px\cf3 \strokec3 ;\cb1 \
+\cb4 \}\cb1 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf17 \cb4 \strokec17 </\cf9 \strokec9 style\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f0 \cf2 \strokec2 \
+And chart \
+\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1 \cf13 \cb4 \strokec13 <!-- no template -->\cf3 \cb1 \strokec3 \
+\
+\pard\pardeftab720\sl360\partightenfactor0
+\cf17 \cb4 \strokec17 <\cf9 \strokec9 script\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\
+\pard\pardeftab720\sl360\partightenfactor0
+\cf12 \cb4 \strokec12 import\cf3 \strokec3  \{ \cf5 \strokec5 Line\cf3 \strokec3 , \cf5 \strokec5 mixins\cf3 \strokec3  \} \cf12 \strokec12 from\cf3 \strokec3  \cf6 \strokec6 'vue-chartjs'\cf3 \cb1 \strokec3 \
+\cf9 \cb4 \strokec9 let\cf3 \strokec3  \{ \cf5 \strokec5 reactiveProp\cf3 \strokec3  \} = \cf5 \strokec5 mixins\cf3 \cb1 \strokec3 \
+\
+\cf12 \cb4 \strokec12 export\cf3 \strokec3  \cf12 \strokec12 default\cf3 \strokec3  \{\cb1 \
+\cb4   \cf5 \strokec5 extends:\cf3 \strokec3  \cf5 \strokec5 Line\cf3 \strokec3 ,\cb1 \
+\cb4   \cf5 \strokec5 name:\cf3 \strokec3  \cf6 \strokec6 'PlantChart'\cf3 \strokec3 ,\cb1 \
+\cb4   \cf5 \strokec5 mixins:\cf3 \strokec3  [\cf5 \strokec5 reactiveProp\cf3 \strokec3 ],\cb1 \
+\cb4   \cf5 \strokec5 props:\cf3 \strokec3  \{     \cb1 \
+\cb4     \cf5 \strokec5 chartData:\cf3 \strokec3  \cf8 \strokec8 Object\cf3 \strokec3 ,\cb1 \
+\cb4     \cf5 \strokec5 options:\cf3 \strokec3  \cf8 \strokec8 Object\cf3 \cb1 \strokec3 \
+\cb4   \},\cb1 \
+\cb4   \cf10 \strokec10 mounted\cf3 \strokec3 () \{\cb1 \
+\cb4     \cf9 \strokec9 this\cf3 \strokec3 .\cf10 \strokec10 renderChart\cf3 \strokec3 (\cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 chartData\cf3 \strokec3 , \cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 chartOptions\cf3 \strokec3 )\cb1 \
+\cb4   \}\cb1 \
+\cb4 \}\cb1 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf17 \cb4 \strokec17 </\cf9 \strokec9 script\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\
+\pard\pardeftab720\sl360\partightenfactor0
+\cf13 \cb4 \strokec13 <!-- Add "scoped" attribute to limit CSS to this component only -->\cf3 \cb1 \strokec3 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf17 \cb4 \strokec17 <\cf9 \strokec9 style\cf3 \strokec3  \cf5 \strokec5 scoped\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\
+\cf17 \cb4 \strokec17 </\cf9 \strokec9 style\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f0 \cf2 \strokec2 \
+}
