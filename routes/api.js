@@ -1,5 +1,5 @@
 let express = require('express')
-let db = require('../models')  // imports index.js from models directory, which 
+let db = require('../models')  // imports index.js from models directory, which imports record model
 let PlantRecord = db.PlantRecord
 
 let router = express.Router()

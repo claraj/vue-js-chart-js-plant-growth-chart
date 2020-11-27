@@ -26,7 +26,15 @@ export default {
       newHeight: 0,
       newDate: '',
       allRecords: [],
-    
+      // chartOptions: {
+      //   scales: {
+      //     xAxes: [{
+      //       type: 'time',
+      //       distribution: 'linear'
+      //     }]
+      //   }
+      // }
+
     }
   },
   mounted() {
@@ -49,14 +57,18 @@ export default {
   },
   computed: {
     chartData() {
+      
       let labels = this.allRecords.map(rec => rec.date) // all the dates 
-      let heights = this.allRecords.map(rec => rec.height) // all the heights
-
+      let heights = this.allRecords.map(rec => rec.height ) // all the heights
+      
       return {
         labels: labels,
          datasets: [ {
           label: 'Height for date',
-          data: heights
+          data: heights,
+          borderColor: 'teal',   // your choice - HTML color names or RGB 
+          fill: true,  // optional
+          lineTension: 0.1  // 0 = straight lines between points, 1 = bezier curves
         }]
       }
     }

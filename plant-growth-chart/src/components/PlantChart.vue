@@ -8,11 +8,20 @@ let { reactiveProp } = mixins
 export default {
   extends: Line,
   name: 'PlantChart',
-  mixins: [reactiveProp],
-  props: {     
-    chartData: Object,
-    options: Object
-  },
+  mixins: [ reactiveProp ],
+  data() {
+    return { 
+      chartOptions: {
+        scales: {
+          xAxes: [
+            {
+              type: 'time',
+              distribution: 'linear'  // space out in time 
+            }
+          ]
+        }
+      }
+  }},
   mounted() {
     this.renderChart(this.chartData, this.chartOptions)
   }

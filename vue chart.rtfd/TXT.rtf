@@ -482,10 +482,6 @@ And chart \
 \cb4   \cf5 \strokec5 extends:\cf3 \strokec3  \cf5 \strokec5 Line\cf3 \strokec3 ,\cb1 \
 \cb4   \cf5 \strokec5 name:\cf3 \strokec3  \cf6 \strokec6 'PlantChart'\cf3 \strokec3 ,\cb1 \
 \cb4   \cf5 \strokec5 mixins:\cf3 \strokec3  [\cf5 \strokec5 reactiveProp\cf3 \strokec3 ],\cb1 \
-\cb4   \cf5 \strokec5 props:\cf3 \strokec3  \{     \cb1 \
-\cb4     \cf5 \strokec5 chartData:\cf3 \strokec3  \cf8 \strokec8 Object\cf3 \strokec3 ,\cb1 \
-\cb4     \cf5 \strokec5 options:\cf3 \strokec3  \cf8 \strokec8 Object\cf3 \cb1 \strokec3 \
-\cb4   \},\cb1 \
 \cb4   \cf10 \strokec10 mounted\cf3 \strokec3 () \{\cb1 \
 \cb4     \cf9 \strokec9 this\cf3 \strokec3 .\cf10 \strokec10 renderChart\cf3 \strokec3 (\cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 chartData\cf3 \strokec3 , \cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 chartOptions\cf3 \strokec3 )\cb1 \
 \cb4   \}\cb1 \
@@ -502,5 +498,96 @@ And chart \
 \
 \pard\pardeftab720\sl280\partightenfactor0
 
+\f0 \cf2 \strokec2 Chart should be shown, updates when new data added\
+\
+\
+HOWEVER \
+\
+the x-axis is wrong - the dates are not spaced correctly \
+\
+and it's a boring color \
+\
+App.vue \
+\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1 \cf3 \cb4 \strokec3  \cf5 \strokec5 computed:\cf3 \strokec3  \{\cb1 \
+\cb4     \cf10 \strokec10 chartData\cf3 \strokec3 () \{\cb1 \
+\cb4       \cb1 \
+\cb4       \cf9 \strokec9 let\cf3 \strokec3  \cf5 \strokec5 labels\cf3 \strokec3  = \cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 allRecords\cf3 \strokec3 .\cf10 \strokec10 map\cf3 \strokec3 (\cf5 \strokec5 rec\cf3 \strokec3  \cf9 \strokec9 =>\cf3 \strokec3  \cf5 \strokec5 rec\cf3 \strokec3 .\cf5 \strokec5 date\cf3 \strokec3 ) \cf13 \strokec13 // all the dates \cf3 \cb1 \strokec3 \
+\cb4       \cf9 \strokec9 let\cf3 \strokec3  \cf5 \strokec5 heights\cf3 \strokec3  = \cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 allRecords\cf3 \strokec3 .\cf10 \strokec10 map\cf3 \strokec3 (\cf5 \strokec5 rec\cf3 \strokec3  \cf9 \strokec9 =>\cf3 \strokec3  \cf5 \strokec5 rec\cf3 \strokec3 .\cf5 \strokec5 height\cf3 \strokec3  ) \cf13 \strokec13 // all the heights\cf3 \cb1 \strokec3 \
+\cb4       \cb1 \
+\cb4       \cf12 \strokec12 return\cf3 \strokec3  \{\cb1 \
+\cb4         \cf5 \strokec5 labels:\cf3 \strokec3  \cf5 \strokec5 labels\cf3 \strokec3 ,\cb1 \
+\cb4          \cf5 \strokec5 datasets:\cf3 \strokec3  [ \{\cb1 \
+\cb4           \cf5 \strokec5 label:\cf3 \strokec3  \cf6 \strokec6 'Height for date'\cf3 \strokec3 ,\cb1 \
+\cb4           \cf5 \strokec5 data:\cf3 \strokec3  \cf5 \strokec5 heights\cf3 \strokec3 ,\cb1 \
+\cb4           \cf5 \strokec5 borderColor:\cf3 \strokec3  \cf6 \strokec6 'teal'\cf3 \strokec3 ,   \cf13 \strokec13 // your choice - HTML color names or RGB \cf3 \cb1 \strokec3 \
+\cb4           \cf5 \strokec5 fill:\cf3 \strokec3  \cf9 \strokec9 false\cf3 \strokec3   \cf13 \strokec13 // optional\cf3 \cb1 \strokec3 \
+\cb4         \}]\cb1 \
+\cb4       \}\cb1 \
+\cb4     \}\cb1 \
+\cb4   \}\cb1 \
+\pard\pardeftab720\sl280\partightenfactor0
+
 \f0 \cf2 \strokec2 \
+\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1 \cf13 \cb4 \strokec13 <!-- no template -->\cf3 \cb1 \strokec3 \
+\
+\pard\pardeftab720\sl360\partightenfactor0
+\cf17 \cb4 \strokec17 <\cf9 \strokec9 script\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\
+\pard\pardeftab720\sl360\partightenfactor0
+\cf12 \cb4 \strokec12 import\cf3 \strokec3  \{ \cf5 \strokec5 Line\cf3 \strokec3 , \cf5 \strokec5 mixins\cf3 \strokec3  \} \cf12 \strokec12 from\cf3 \strokec3  \cf6 \strokec6 'vue-chartjs'\cf3 \cb1 \strokec3 \
+\cf9 \cb4 \strokec9 let\cf3 \strokec3  \{ \cf5 \strokec5 reactiveProp\cf3 \strokec3  \} = \cf5 \strokec5 mixins\cf3 \cb1 \strokec3 \
+\
+\cf12 \cb4 \strokec12 export\cf3 \strokec3  \cf12 \strokec12 default\cf3 \strokec3  \{\cb1 \
+\cb4   \cf5 \strokec5 extends:\cf3 \strokec3  \cf5 \strokec5 Line\cf3 \strokec3 ,\cb1 \
+\cb4   \cf5 \strokec5 name:\cf3 \strokec3  \cf6 \strokec6 'PlantChart'\cf3 \strokec3 ,\cb1 \
+\cb4   \cf5 \strokec5 mixins:\cf3 \strokec3  [ \cf5 \strokec5 reactiveProp\cf3 \strokec3  ],\cb1 \
+\cb4   \cf10 \strokec10 data\cf3 \strokec3 () \{\cb1 \
+\cb4     \cf12 \strokec12 return\cf3 \strokec3  \{ \cb1 \
+\cb4       \cf5 \strokec5 chartOptions:\cf3 \strokec3  \{\cb1 \
+\cb4         \cf5 \strokec5 scales:\cf3 \strokec3  \{\cb1 \
+\cb4           \cf5 \strokec5 xAxes:\cf3 \strokec3  [\cb1 \
+\cb4             \{\cb1 \
+\cb4               \cf5 \strokec5 type:\cf3 \strokec3  \cf6 \strokec6 'time'\cf3 \strokec3 ,\cb1 \
+\cb4               \cf5 \strokec5 distribution:\cf3 \strokec3  \cf6 \strokec6 'linear'\cf3 \strokec3   \cf13 \strokec13 // space out in time \cf3 \cb1 \strokec3 \
+\cb4             \}\cb1 \
+\cb4           ]\cb1 \
+\cb4         \}\cb1 \
+\cb4       \}\cb1 \
+\cb4   \}\},\cb1 \
+\cb4   \cf10 \strokec10 mounted\cf3 \strokec3 () \{\cb1 \
+\cb4     \cf9 \strokec9 this\cf3 \strokec3 .\cf10 \strokec10 renderChart\cf3 \strokec3 (\cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 chartData\cf3 \strokec3 , \cf9 \strokec9 this\cf3 \strokec3 .\cf5 \strokec5 chartOptions\cf3 \strokec3 )\cb1 \
+\cb4   \}\cb1 \
+\cb4 \}\cb1 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf17 \cb4 \strokec17 </\cf9 \strokec9 script\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\
+\pard\pardeftab720\sl360\partightenfactor0
+\cf13 \cb4 \strokec13 <!-- Add "scoped" attribute to limit CSS to this component only -->\cf3 \cb1 \strokec3 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf17 \cb4 \strokec17 <\cf9 \strokec9 style\cf3 \strokec3  \cf5 \strokec5 scoped\cf17 \strokec17 >\cf3 \cb1 \strokec3 \
+\
+\cf17 \cb4 \strokec17 </\cf9 \strokec9 style\cf17 \strokec17 >\
+\
+\pard\pardeftab720\sl360\partightenfactor0
+\cf3 \cb1 \strokec3 \
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f4 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 Example Chart: \
+\
+\
+{{\NeXTGraphic Pasted Graphic 1.png \width7220 \height10000 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \
+\pard\pardeftab720\sl280\partightenfactor0
+\cf2 \
 }
